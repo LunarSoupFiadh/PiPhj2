@@ -92,7 +92,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
 
         if (this.state == "jumping") {
             this.airtime++;
-        }
+        } else this.airtime = 0;
 
         if (this.leftKey?.isDown)
             {
@@ -118,8 +118,8 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
                     this.setVelocityY(-160);
                     this.state = "jumping"
                 }
-                else {
-                    airtime
+                else if (this.airtime <= 200 && this.airtime >= 600) {
+                    this.body.velocity.add(new Phaser.Math.Vector2(0, -20));
                 }
             }
         else if (this.downKey?.isDown)
