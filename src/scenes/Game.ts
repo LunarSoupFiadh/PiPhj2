@@ -16,7 +16,8 @@
         objectLayer: Tilemaps.TilemapLayer | undefined | any;
         walls: Phaser.Physics.Arcade.StaticGroup;
         crystals: Phaser.Physics.Arcade.StaticGroup;
-        blocks: Phaser.Physics.Arcade.Group;
+        //blocks: Phaser.Physics.Arcade.Group;
+        ground: Phaser.GameObjects.Rectangle;
         playerLight: Phaser.GameObjects.Light;
         spawn: Phaser.Physics.Arcade.Sprite;
         maxScore: number;
@@ -35,13 +36,15 @@
             
             //  Input Events
             this.cursors = this.input.keyboard?.createCursorKeys();
-
             
-
             //  The player
-            this.player = this.physics.add.existing(new Player(this, 530, 480, 'Idle D','1'));
+            this.player = this.physics.add.existing(new Player(this, 530, 480, 'Lv1_Idle', 1));
             
+            this.ground = this.add.rectangle(this.physics.world.bounds.width/2, this.physics.world.bounds.height-10, this.physics.world.bounds.width, 10, 0x008000);
 
+            this.physics.world.enableBody(this.ground, 1);
+            this.physics.add.collider(this.ground, this.player);
+            /*
             //map
             this.currentMap = this.make.tilemap({key: 'map' + this.player.currentLevel});
             const tileset = this.currentMap.addTilesetImage('DebugTiles', 'debugTiles');
@@ -109,15 +112,14 @@
                 //DJWIAHDLWAHLDHWALIDAW
 
                 /*  Was used to show current collision of the world border, currently unused.
-                const debugGraphics = this.add.graphics().setAlpha(0.6)
+                
                 this.groundLayer?.renderDebug(debugGraphics, {
                     tileColor: null,
                     collidingTileColor: new Phaser.Display.Color(240, 230, 40, 255),
                     faceColor: new Phaser.Display.Color(200, 100, 240, 255)
                 })
-                */
             }
-
+            */
             // player part 2
             this.add.existing(this.player);
             this.player.setPipeline('Light2D');
@@ -142,6 +144,7 @@
             */
         }
 
+        /*
         blocksCollide(block1: Block, block2: Block) {
             if(block1.body!.y >= block2.body!.y) {
                 block2.setVelocityY(-100);
@@ -152,6 +155,7 @@
                 block1.setVelocityX(100);
             }
         }
+        */
 
         //  collides by milo
         collideWall(player: Player, wall: any) {
@@ -192,6 +196,7 @@
             this.playerLight.setPosition(this.player.x, this.player.y);
             this.playerLight.setRadius(64 + (this.player.score * 64));
             this.playerLight.setIntensity(1)
+            /*
             this.blocks.getChildren().forEach(element => {
                 element.body!.velocity.x = element.body!.velocity.x * 0.6
                 element.body!.velocity.y = element.body!.velocity.y * 0.6
@@ -199,6 +204,7 @@
                 if (Math.abs(element.body!.velocity.y) < 20) {element.body!.velocity.y = 0;}
                 console.log('blub');
             });
+            */
             if (this.gameOver)
             {
                 this.scene.start('GameOver',);

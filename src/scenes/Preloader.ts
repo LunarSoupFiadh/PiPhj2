@@ -35,48 +35,19 @@ export class Preloader extends Scene
         this.load.setPath('assets');
 
         this.load.aseprite({
-            key: 'idle',
-            textureURL: 'sprites/player_idle.png',
-            atlasURL: 'sprites/player_idle.json'
+            key: 'player',
+            textureURL: 'player/All_Anims.png',
+            atlasURL: 'player/All_Anims.json'
         });
-        this.load.aseprite({
-            key: 'walk',
-            textureURL: 'sprites/player_walk.png',
-            atlasURL: 'sprites/player_walk.json'
-        });
-        this.load.aseprite({
-            key: 'bird',
-            textureURL: 'sprites/Animals WIP.png',
-            atlasURL: 'sprites/Animals WIP.json'
-        });
-        this.load.image('logo', 'logo.png');
-        this.load.image('debugTiles', 'sprites/DebugTiles.png');
-        this.load.image('crystal', 'sprites/Crystal.png');
-        
-        this.load.aseprite({
-            key: 'enemy',
-            textureURL: 'sprites/Enemy.png',
-            atlasURL: 'sprites/Enemy.json'
-        });
-        this.load.aseprite({
-            key: 'enemySpawn',
-            textureURL: 'sprites/EnemySpawn.png',
-            atlasURL: 'sprites/EnemySpawn.json'
-        });
-        this.load.image('wall', 'sprites/Wall.png');
-        this.load.image('block', 'sprites/Block.png');
-        this.load.image('spawn', 'sprites/Spawn.png');
 
-        this.load.tilemapTiledJSON('map0', 'maps/testmap.json');
+        this.load.tilemapTiledJSON('area1', 'maps/map1.json');
     }
 
     create ()
     {
         //  When all the assets have loaded, it's often worth creating global objects here that the rest of the game can use.
         //  For example, you can define global animations here, so we can use them in other scenes.
-        this.anims.createFromAseprite('walk');
-        this.anims.createFromAseprite('idle');
-        this.anims.createFromAseprite('bird');
+        this.anims.createFromAseprite('player');
         
 
         //  Move to the MainMenu. You could also swap this for a Scene Transition, such as a camera fade.

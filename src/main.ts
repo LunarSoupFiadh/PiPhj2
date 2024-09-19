@@ -10,15 +10,15 @@ import { Game, Types } from "phaser";
 //  https://newdocs.phaser.io/docs/3.70.0/Phaser.Types.Core.GameConfig
 const config: Types.Core.GameConfig = {
     type: Phaser.AUTO,
-    width: 500*2,
-    height: 500*2,
+    width: 800,
+    height: 800,
     parent: 'game-container',
     backgroundColor: "#1c172e",
     pixelArt: true,
     roundPixels: false,
     max: {
-        width: 500,
-        height: 500,
+        width: 800,
+        height: 800,
     },
     scale: {
         zoom: 2,
@@ -28,7 +28,8 @@ const config: Types.Core.GameConfig = {
     physics: {
         default: "arcade",
         arcade: {
-            gravity: { x:0, y: 9000 }
+            debug: true,
+            gravity: { x:0, y: 90 }
         }
     },
     scene: [

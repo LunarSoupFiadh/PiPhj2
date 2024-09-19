@@ -45,14 +45,17 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
         this.swapKey = scene.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.F);
 
         if(currentLevel) {
+            if(currentLevel < 1) currentLevel = 1;
             this.currentLevel = currentLevel;
-        } else this.currentLevel = 0;
+
+        } else this.currentLevel = 1;
 
         
 
         //body size
-        this.body?.setSize(12, 18)
-        this.scale = 1.5 
+        this.body?.setSize(26, 80);
+        this.body?.setOffset(50,0);
+        this.scale = 1;
 
         //this.drawHPBar();
         this.createUI();
@@ -80,11 +83,6 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
 
     playerUpdate() {
         this.handleInput();
-        
-        this.updateLight();
-    }
-    updateLight() {
-        
     }
 
     handleInput() {
@@ -101,7 +99,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
 
                 if (this.body.touching.down) this.state = "running";
                 
-                if (this.state == "running") this.anims.play('Run L', true);
+                if (this.state == "running") this.anims.play('Lv'+this.currentLevel+'_Walk', true);
             }
         else if (this.rightKey?.isDown)
             {
@@ -110,7 +108,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
 
                 if (this.body.touching.down) this.state = "running";
                  
-                if (this.state == "running") this.anims.play('Run R', true);
+                if (this.state == "running") this.anims.play('Lv'+this.currentLevel+'_Walk', true);
             }
         if (this.jumpKey?.isDown)
             {
@@ -134,13 +132,9 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
                 if(Math.abs(this.body.velocity.x) < 20) this.body.velocity.x = 0;
 
             }
-        if (!this.jumpKey?.isDown && !this.downKey?.isDown) {
-            this.body.velocity.y = this.body.velocity.y * 0.6;
-            if(Math.abs(this.body.velocity.y) < 20) this.body.velocity.y = 0;
-            }
 
         if(this.body.velocity.x == 0 && this.body.velocity.y == 0) {
-            this.anims.play('Idle D');
+            this.anims.play('Lv'+this.currentLevel+'_Idle');
         }
 
         }
