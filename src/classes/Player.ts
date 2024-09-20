@@ -9,21 +9,17 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     swapKey: Phaser.Input.Keyboard.Key | undefined;
 
     isAttacking: boolean | undefined;
+    isCrouching: boolean | undefined;
 
-    /*  guide on this value:
-        7   8   9
-        4   5   6
-        1   2   3
-        the value is based on a standard numpad
-    */
-    currentDirection: integer | undefined;
-    
     currentLevel: integer | undefined;
-    
+    currentAnimPrefix: string | undefined;
+
     bar: HTMLElement;
     hp: number = 100;
     score: number = 1;
     airtime: number = 0;
+    offsetY: number;
+    speed: number;
 
     
 
@@ -50,39 +46,41 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
 
         } else this.currentLevel = 1;
 
+        this.currentAnimPrefix = "Lv" + this.currentLevel + "_";
         
+        //walk 160, crouch 100
+        this.speed = 160;
 
         //body size
-        this.body?.setSize(26, 80);
-        this.body?.setOffset(50,0);
+        this.setBodySize(22, 38, false);
+        this.body?.setOffset(44,this.offsetY = 43);
         this.scale = 1;
-
-        //this.drawHPBar();
-        this.createUI();
-    }
-
-    createUI() {
-        let hpBarContainer = document.createElement("div");
-        hpBarContainer.id = "hpBar"
-
-        let hpBarTitle = document.createElement("h3")
-        hpBarContainer.appendChild(hpBarTitle);
-        hpBarTitle.innerHTML = "HP:";
-
-        let hpBarOutline = document.createElement("div");
-        let bar = document.createElement("div");
-
-        hpBarContainer.appendChild(hpBarOutline);
-        hpBarOutline.appendChild(bar);
-        bar.id = "bar"
-
-        this.scene.add.dom(64, 64, hpBarContainer);
-
-        this.bar = bar;
     }
 
     playerUpdate() {
+        this.handleProperties();
         this.handleInput();
+    }
+    handleProperties() {
+        if(this.flipX) {
+            this.body?.setOffset(53,this.offsetY);
+        } else this.body?.setOffset(44,this.offsetY);
+
+        if(this.isCrouching) {
+            this.offsetY = 53;
+            this.setBodySize(22, 28, false);
+        } else {
+            this.offsetY = 43;
+            this.setBodySize(22, 38, false);
+        }
+
+        if (this.isCrouching && this.state == "jumping") {
+            this.speed *= 1.1;
+            if (this.speed >= 500) this.speed = 500;
+        } else if(this.isCrouching || this.state == "jumping") {
+            this.speed = 100;
+        } else this.speed = 160;
+
     }
 
     handleInput() {
@@ -90,41 +88,66 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
 
         if (this.state == "jumping") {
             this.airtime++;
-        } else this.airtime = 0;
+            console.log("jumping weeeeee");
+            if (this.body.velocity.y > -10) {
+                if (this.anims.getName() != this.currentAnimPrefix + 'Fall') {
+                    this.anims.play(this.currentAnimPrefix + 'Fall_Transition', true);
+                }
+                this.anims.play(this.currentAnimPrefix + 'Fall', true);
+                this.body.velocity.y += 4;
+            } else {
+                this.anims.play(this.currentAnimPrefix + 'Jump', true);
+            }
+        }
+        if (this.body.touching.down) {
+            this.state = "idle";
+            this.airtime = 0;
+        }
 
         if (this.leftKey?.isDown)
             {
-                this.setVelocityX(-160);
+                this.setVelocityX(-this.speed);
                 this.setFlipX(true);
 
                 if (this.body.touching.down) this.state = "running";
                 
-                if (this.state == "running") this.anims.play('Lv'+this.currentLevel+'_Walk', true);
+                if (this.state == "running") this.anims.play(this.currentAnimPrefix + 'Walk', true);
             }
         else if (this.rightKey?.isDown)
             {
-                this.setVelocityX(160);
+                this.setVelocityX(this.speed);
                 this.setFlipX(false);
 
                 if (this.body.touching.down) this.state = "running";
                  
-                if (this.state == "running") this.anims.play('Lv'+this.currentLevel+'_Walk', true);
+                if (this.state == "running") this.anims.play(this.currentAnimPrefix + 'Walk', true);
             }
         if (this.jumpKey?.isDown)
             {
                 if (this.body.touching.down) {
-                    this.setVelocityY(-160);
-                    this.state = "jumping"
+                    this.setVelocityY(-100);
+                    this.state = "jumping";
+                    
                 }
-                else if (this.airtime <= 200 && this.airtime >= 600) {
-                    this.body.velocity.add(new Phaser.Math.Vector2(0, -20));
+                else if (this.airtime <= 20 && this.airtime >= 5) {
+                    this.setVelocityY(this.body.velocity.y - 1);
+                    console.log("boooooost");
+                    
                 }
             }
-        else if (this.downKey?.isDown)
+        if (this.downKey?.isDown)
             {
-                this.setVelocityY(160);
-    
-                this.state = "crouching";
+                this.setVelocityY(this.body.velocity.y + 10);
+                if (this.body.touching.down) {
+                    this.isCrouching = true;
+                    this.currentAnimPrefix = "Lv" + this.currentLevel + "_Crouch_";
+                    if ('Crouch' !in this.anims.getName().toString) {
+                        this.anims.play(this.currentAnimPrefix + 'Transition', true)   
+                    }
+                }
+            } else {
+                this.isCrouching = false;
+                this.currentAnimPrefix = "Lv" + this.currentLevel + "_";
             }
         if (!this.leftKey?.isDown && !this.rightKey?.isDown)
             {
@@ -133,26 +156,9 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
 
             }
 
-        if(this.body.velocity.x == 0 && this.body.velocity.y == 0) {
-            this.anims.play('Lv'+this.currentLevel+'_Idle');
+        if(this.state == 'idle') {
+            this.anims.play(this.currentAnimPrefix + 'Idle', true);
         }
 
-        }
-
-        setHP(percentage: number) {
-
-            this.bar.animate([{width:percentage.toString()+"px"}], {
-                duration:100,
-                fill:"forwards",
-            });
-
-            //this.bar.style.width = percentage.toString() +"px";
-
-            if (this.hp <= 0)
-            {
-                this.hp = 100;
-
-                this.scene.scene.start("Game");
-            }
-        }
+    }
 }
