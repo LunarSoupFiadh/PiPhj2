@@ -88,6 +88,10 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
 
         if (this.state == "jumping") {
             this.airtime++;
+            this.body.velocity.y += this.airtime;
+            if (this.airtime >= 25 && this.body.velocity.y <= -80) {
+                this.body.velocity.y += 1;
+            }
             console.log("jumping weeeeee");
             if (this.body.velocity.y > -10) {
                 if (this.anims.getName() != this.currentAnimPrefix + 'Fall') {
@@ -125,12 +129,12 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
         if (this.jumpKey?.isDown)
             {
                 if (this.body.touching.down) {
-                    this.setVelocityY(-100);
+                    this.setVelocityY(-300);
                     this.state = "jumping";
                     
                 }
                 else if (this.airtime <= 20 && this.airtime >= 5) {
-                    this.setVelocityY(this.body.velocity.y - 1);
+                    this.setVelocityY(this.body.velocity.y - 10);
                     console.log("boooooost");
                     
                 }
