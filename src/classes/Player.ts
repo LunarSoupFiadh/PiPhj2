@@ -8,7 +8,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     interactKey: Phaser.Input.Keyboard.Key | undefined;
     swapKey: Phaser.Input.Keyboard.Key | undefined;
 
-    isAttacking: boolean | undefined;
+    isDodging: boolean | undefined;
     isCrouching: boolean | undefined;
 
     currentLevel: integer | undefined;
@@ -20,7 +20,10 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     airtime: number = 0;
     offsetY: number;
     speed: number;
+    attackKey: Phaser.Input.Keyboard.Key | undefined;
+    dodgeKey: Phaser.Input.Keyboard.Key | undefined;
 
+    inputLock: number = 300;
     
 
     constructor(scene: Phaser.Scene, x: number, y: number,
@@ -33,12 +36,14 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
 
         
         //Player Input
-        this.jumpKey = scene.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-        this.leftKey = scene.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.A);
-        this.rightKey = scene.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.D);
-        this.downKey = scene.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+        this.jumpKey = scene.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+        this.leftKey = scene.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
+        this.rightKey = scene.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+        this.downKey = scene.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
         this.interactKey = scene.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.E);
         this.swapKey = scene.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.F);
+        this.attackKey = scene.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+        this.dodgeKey = scene.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.A);
 
         if(currentLevel) {
             if(currentLevel < 1) currentLevel = 1;
@@ -85,14 +90,12 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
 
     handleInput() {
         if (!this.body) return;
-
         if (this.state == "jumping") {
             this.airtime++;
             this.body.velocity.y += this.airtime;
             if (this.airtime >= 25 && this.body.velocity.y <= -80) {
                 this.body.velocity.y += 1;
             }
-            console.log("jumping weeeeee");
             if (this.body.velocity.y > -10) {
                 if (this.anims.getName() != this.currentAnimPrefix + 'Fall') {
                     this.anims.play(this.currentAnimPrefix + 'Fall_Transition', true);
@@ -107,9 +110,22 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
             this.state = "idle";
             this.airtime = 0;
         }
-
-        if (this.leftKey?.isDown)
-            {
+        if (this.inputLock <= 0) {
+            this.inputLock = 0;
+        } else {
+            this.inputLock--;
+        }
+        
+            if (this.attackKey?.isDown) {
+                this.state = "attacking"
+            }
+    
+            if (Phaser.Input.Keyboard.JustDown(this.dodgeKey!) && this.inputLock <= 0) {
+                this.inputLock = 300;
+                
+            }
+    
+            if (this.leftKey?.isDown && this.inputLock <= 0) {
                 this.setVelocityX(-this.speed);
                 this.setFlipX(true);
 
@@ -117,17 +133,15 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
                 
                 if (this.state == "running") this.anims.play(this.currentAnimPrefix + 'Walk', true);
             }
-        else if (this.rightKey?.isDown)
-            {
+            else if (this.rightKey?.isDown && this.inputLock <= 0) {
                 this.setVelocityX(this.speed);
                 this.setFlipX(false);
 
                 if (this.body.touching.down) this.state = "running";
-                 
+                    
                 if (this.state == "running") this.anims.play(this.currentAnimPrefix + 'Walk', true);
             }
-        if (this.jumpKey?.isDown)
-            {
+            if (this.jumpKey?.isDown && this.inputLock <= 0) {
                 if (this.body.touching.down) {
                     this.setVelocityY(-300);
                     this.state = "jumping";
@@ -139,8 +153,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
                     
                 }
             }
-        if (this.downKey?.isDown)
-            {
+            if (this.downKey?.isDown) {
                 this.setVelocityY(this.body.velocity.y + 10);
                 if (this.body.touching.down) {
                     this.isCrouching = true;
@@ -153,12 +166,12 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
                 this.isCrouching = false;
                 this.currentAnimPrefix = "Lv" + this.currentLevel + "_";
             }
-        if (!this.leftKey?.isDown && !this.rightKey?.isDown)
-            {
-                this.body.velocity.x = this.body.velocity.x * 0.6;
-                if(Math.abs(this.body.velocity.x) < 20) this.body.velocity.x = 0;
+        
+        if (!this.leftKey?.isDown && !this.rightKey?.isDown) {
+            this.body.velocity.x = this.body.velocity.x * 0.6;
+            if(Math.abs(this.body.velocity.x) < 20) this.body.velocity.x = 0;
 
-            }
+        }
 
         if(this.state == 'idle') {
             this.anims.play(this.currentAnimPrefix + 'Idle', true);
