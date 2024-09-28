@@ -81,7 +81,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
 
         if (this.isCrouching && this.state == "jumping") {
             this.speed *= 1.1;
-            if (this.speed >= 500) this.speed = 500;
+            if (this.speed >= 300) this.speed = 300;
         } else if(this.isCrouching || this.state == "jumping") {
             this.speed = 100;
         } else this.speed = 160;
@@ -116,64 +116,78 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
             this.inputLock--;
         }
         
-            if (this.attackKey?.isDown) {
-                this.state = "attacking"
-            }
-    
-            if (Phaser.Input.Keyboard.JustDown(this.dodgeKey!) && this.inputLock <= 0) {
-                this.inputLock = 300;
-                
-            }
-    
-            if (this.leftKey?.isDown && this.inputLock <= 0) {
-                this.setVelocityX(-this.speed);
-                this.setFlipX(true);
+        if (this.attackKey?.isDown && !this.isDodging) {
+            this.state = "attacking"
+        }
 
-                if (this.body.touching.down) this.state = "running";
-                
-                if (this.state == "running") this.anims.play(this.currentAnimPrefix + 'Walk', true);
-            }
-            else if (this.rightKey?.isDown && this.inputLock <= 0) {
-                this.setVelocityX(this.speed);
-                this.setFlipX(false);
-
-                if (this.body.touching.down) this.state = "running";
-                    
-                if (this.state == "running") this.anims.play(this.currentAnimPrefix + 'Walk', true);
-            }
-            if (this.jumpKey?.isDown && this.inputLock <= 0) {
-                if (this.body.touching.down) {
-                    this.setVelocityY(-300);
-                    this.state = "jumping";
-                    
-                }
-                else if (this.airtime <= 20 && this.airtime >= 5) {
-                    this.setVelocityY(this.body.velocity.y - 10);
-                    console.log("boooooost");
-                    
-                }
-            }
-            if (this.downKey?.isDown) {
-                this.setVelocityY(this.body.velocity.y + 10);
-                if (this.body.touching.down) {
-                    this.isCrouching = true;
-                    this.currentAnimPrefix = "Lv" + this.currentLevel + "_Crouch_";
-                    if ('Crouch' !in this.anims.getName().toString) {
-                        this.anims.play(this.currentAnimPrefix + 'Transition', true)   
-                    }
-                }
-            } else {
-                this.isCrouching = false;
+        if (Phaser.Input.Keyboard.JustDown(this.dodgeKey!) && this.inputLock < 1 && this.state != 'jumping') {
+            if (this.isCrouching) {
                 this.currentAnimPrefix = "Lv" + this.currentLevel + "_";
             }
+            if (this.flipX) {
+                this.setVelocityX(-this.speed * 1.4);
+            }
+            else this.setVelocityX(this.speed * 1.4);
+            this.anims.play(this.currentAnimPrefix + 'Roll', true);
+            this.isDodging = true;
+            this.state = "roll";
+            this.inputLock = 36;
+        } else if (this.inputLock < 1) {
+            this.isDodging = false;
+            if (this.isCrouching) {
+                this.currentAnimPrefix = "Lv" + this.currentLevel + "_Crouch_";
+            }
+        }
+
+        if (this.leftKey?.isDown && !this.isDodging) {
+            this.setVelocityX(-this.speed);
+            this.setFlipX(true);
+
+            if (this.body.touching.down) this.state = "running";
+            
+            if (this.state == "running") this.anims.play(this.currentAnimPrefix + 'Walk', true);
+        }
+        else if (this.rightKey?.isDown && !this.isDodging) {
+            this.setVelocityX(this.speed);
+            this.setFlipX(false);
+
+            if (this.body.touching.down) this.state = "running";
+                
+            if (this.state == "running") this.anims.play(this.currentAnimPrefix + 'Walk', true);
+        }
+        if (this.jumpKey?.isDown && !this.isDodging) {
+            if (this.body.touching.down) {
+                this.setVelocityY(-300);
+                this.state = "jumping";
+                
+            }
+            else if (this.airtime <= 20 && this.airtime >= 5) {
+                this.setVelocityY(this.body.velocity.y - 10);
+                console.log("boooooost");
+                
+            }
+        }
+        if (this.downKey?.isDown) {
+            this.setVelocityY(this.body.velocity.y + 10);
+            if (this.body.touching.down) {
+                this.isCrouching = true;
+                this.currentAnimPrefix = "Lv" + this.currentLevel + "_Crouch_";
+                if ('Crouch' !in this.anims.getName().toString) {
+                    this.anims.play(this.currentAnimPrefix + 'Transition', true)   
+                }
+            }
+        } else {
+            this.isCrouching = false;
+            this.currentAnimPrefix = "Lv" + this.currentLevel + "_";
+        }
         
-        if (!this.leftKey?.isDown && !this.rightKey?.isDown) {
+        if (!this.leftKey?.isDown && !this.rightKey?.isDown && !this.isDodging) {
             this.body.velocity.x = this.body.velocity.x * 0.6;
             if(Math.abs(this.body.velocity.x) < 20) this.body.velocity.x = 0;
 
         }
 
-        if(this.state == 'idle') {
+        if(this.state == 'idle' && !this.isDodging) {
             this.anims.play(this.currentAnimPrefix + 'Idle', true);
         }
 
