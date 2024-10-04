@@ -40,7 +40,13 @@ export class Preloader extends Scene
             atlasURL: 'player/All_Anims.json'
         });
 
-        this.load.tilemapTiledJSON('area1', 'maps/map1.json');
+        this.load.tilemapTiledJSON('map1', 'maps/map1.json');
+
+        this.load.image("overworld", 'maps/Overworld.png');
+        this.load.image("overworldAnim", 'maps/OverworldAnimation.png');
+        this.load.image("underground", 'maps/Underground.png');
+        this.load.image("undergroundAnim", 'maps/UndergroundAnimation.png');
+        
     }
 
     create ()

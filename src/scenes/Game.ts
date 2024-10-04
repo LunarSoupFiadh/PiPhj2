@@ -11,12 +11,9 @@
         player : Player;
         gameOver : boolean;
         currentMap: Tilemaps.Tilemap;
-        groundLayer: Tilemaps.TilemapLayer | undefined | any;
-        wallLayer: Tilemaps.TilemapLayer | undefined | any;
+        groundTileset: Tilemaps.Tileset | null;
+        groundLayer: Tilemaps.TilemapLayer | null;
         objectLayer: Tilemaps.TilemapLayer | undefined | any;
-        walls: Phaser.Physics.Arcade.StaticGroup;
-        crystals: Phaser.Physics.Arcade.StaticGroup;
-        //blocks: Phaser.Physics.Arcade.Group;
         ground: Phaser.GameObjects.Rectangle;
         playerLight: Phaser.GameObjects.Light;
         spawn: Phaser.Physics.Arcade.Sprite;
@@ -38,37 +35,38 @@
             this.cursors = this.input.keyboard?.createCursorKeys();
             
             //  The player
-            this.player = this.physics.add.existing(new Player(this, 530, 480, 'Lv1_Idle', 1));
+            this.player = this.physics.add.existing(new Player(this, 300, 10, 'Lv1_Idle', 1));
             
             this.ground = this.add.rectangle(this.physics.world.bounds.width/2, this.physics.world.bounds.height-10, this.physics.world.bounds.width, 10, 0x008000);
 
             this.physics.world.enableBody(this.ground, 1);
             this.physics.add.collider(this.ground, this.player);
-            /*
             //map
-            this.currentMap = this.make.tilemap({key: 'map' + this.player.currentLevel});
-            const tileset = this.currentMap.addTilesetImage('DebugTiles', 'debugTiles');
-
-            if(tileset) {
+            this.currentMap = this.make.tilemap({key: "map1"});
+            this.groundTileset = this.currentMap.addTilesetImage('Terrain', 'overworld');
+            
+                
+            if(this.groundTileset) {
                 console.log("generating map")
-                this.groundLayer = this.currentMap.createLayer('ground', tileset);
+                this.groundLayer = this.currentMap.createLayer('ground', this.groundTileset,0, 100);
+                
+                this.currentMap.setCollisionBetween(0, this.currentMap.tiles.length, true, true, this.groundLayer!)
+
                 this.groundLayer?.setCollisionByProperty({"collides":true});
-                this.wallLayer = this.currentMap.getObjectLayer('wall');
-                this.walls = this.physics.add.staticGroup();
-                this.blocks = this.physics.add.group();
-                this.crystals = this.physics.add.staticGroup();
+
+                /*
                 // The following 3 errors can be ignorded
                 this.wallLayer.objects.forEach(element => {
                     let wall = this.physics.add.staticSprite(element.x+16, element.y-16, 'wall');
                     wall.setPipeline('Light2D');
                     this.walls.add(wall);
                     console.log(wall + " created");
-                });
+                }); */
+                this.groundLayer?.forEachTile(createPlatform, this, 0, 0, this.groundLayer.width, this.groundLayer.height, )
 
                 console.log("wall generation complete");
 
-                this.crystals = this.physics.add.staticGroup();
-                
+                /*
                 this.objectLayer = this.currentMap.getObjectLayer('objects');
                 
                 this.objectLayer.objects.forEach(object => {
@@ -92,7 +90,7 @@
                         this.blocks.add(block);
                     }
                 });
-
+                
                 //add colliders for this.player and this.crystals (see the this.walls collider above)
                 //same thing for blocks
                 //add functions for colliding with blocks and with crystals
@@ -118,12 +116,13 @@
                     collidingTileColor: new Phaser.Display.Color(240, 230, 40, 255),
                     faceColor: new Phaser.Display.Color(200, 100, 240, 255)
                 })
+                    */
             }
-            */
+            
             // player part 2
             this.add.existing(this.player);
             this.player.setPipeline('Light2D');
-            this.physics.add.collider(this.player, this.groundLayer);
+            this.physics.add.collider(this.player, this.groundLayer!,);
 
             this.playerLight = this.lights.addLight(this.player.x, this.player.y, 32, 0xffffff, 1);
 
@@ -142,9 +141,9 @@
             });
             this.msg_text.setOrigin(0.5);
             */
-        }
+            }
 
-        /*
+        
         blocksCollide(block1: Block, block2: Block) {
             if(block1.body!.y >= block2.body!.y) {
                 block2.setVelocityY(-100);
@@ -155,7 +154,7 @@
                 block1.setVelocityX(100);
             }
         }
-        */
+        
 
         //  collides by milo
         collideWall(player: Player, wall: any) {
@@ -212,3 +211,10 @@
 
         }
     }
+function createPlatform(this: any, tile: Tilemaps.Tile) {
+    
+    if (tile.properties) {
+
+    }
+}
+

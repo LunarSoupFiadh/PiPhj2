@@ -57,9 +57,11 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
         this.speed = 160;
 
         //body size
+        
         this.setBodySize(22, 38, false);
         this.body?.setOffset(44,this.offsetY = 43);
         this.scale = 1;
+        this.anims.play(this.currentAnimPrefix + 'Fall', true);
     }
 
     playerUpdate() {
@@ -106,7 +108,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
                 this.anims.play(this.currentAnimPrefix + 'Jump', true);
             }
         }
-        if (this.body.touching.down) {
+        if (this.body.touching.down || this.body.onFloor()) {
             this.state = "idle";
             this.airtime = 0;
         }
@@ -143,7 +145,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
             this.setVelocityX(-this.speed);
             this.setFlipX(true);
 
-            if (this.body.touching.down) this.state = "running";
+            if (this.body.touching.down || this.body.onFloor()) this.state = "running";
             
             if (this.state == "running") this.anims.play(this.currentAnimPrefix + 'Walk', true);
         }
@@ -151,15 +153,14 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
             this.setVelocityX(this.speed);
             this.setFlipX(false);
 
-            if (this.body.touching.down) this.state = "running";
+            if (this.body.touching.down || this.body.onFloor()) this.state = "running";
                 
             if (this.state == "running") this.anims.play(this.currentAnimPrefix + 'Walk', true);
         }
         if (this.jumpKey?.isDown && !this.isDodging) {
-            if (this.body.touching.down) {
+            if (this.body.touching.down || this.body.onFloor()) {
                 this.setVelocityY(-300);
                 this.state = "jumping";
-                
             }
             else if (this.airtime <= 20 && this.airtime >= 5) {
                 this.setVelocityY(this.body.velocity.y - 10);
@@ -169,7 +170,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
         }
         if (this.downKey?.isDown) {
             this.setVelocityY(this.body.velocity.y + 10);
-            if (this.body.touching.down) {
+            if (this.body.touching.down || this.body.onFloor()) {
                 this.isCrouching = true;
                 this.currentAnimPrefix = "Lv" + this.currentLevel + "_Crouch_";
                 if ('Crouch' !in this.anims.getName().toString) {
