@@ -11,14 +11,14 @@ import { Game, Types } from "phaser";
 const config: Types.Core.GameConfig = {
     type: Phaser.AUTO,
     width: 800,
-    height: 800,
+    height: 600,
     parent: 'game-container',
     backgroundColor: "#1c172e",
     pixelArt: true,
     roundPixels: false,
     max: {
         width: 800,
-        height: 800,
+        height: 600,
     },
     scale: {
         zoom: 2,
