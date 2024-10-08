@@ -1,0 +1,306 @@
+{ "compressionlevel":-1,
+ "height":20,
+ "infinite":false,
+ "layers":[
+        {
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 22, 2147483670, 0, 0, 0, 0, 22, 2147483670, 0, 0, 0, 0, 22, 2147483670, 0, 0, 0, 0, 22, 2147483670, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 22, 2147483670, 0, 0, 0, 0, 22, 2147483670, 0, 0, 0, 0, 22, 2147483670, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 22, 2147483670, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 22, 2147483670, 0, 0, 0, 0, 22, 2147483670, 0, 0, 0, 0, 22, 2147483670, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 22, 2147483670, 0, 0, 22, 8, 0, 22, 2147483670, 0, 0, 0, 0, 22, 2147483670, 0, 0, 0, 0, 22, 2147483670, 0, 0, 0, 0, 0,
+            31, 31, 31, 2147483677, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 24, 2147483672, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 24,
+            59, 59, 2147483676, 28, 0, 0, 0, 0, 0, 0, 0, 0, 0, 27, 28, 2147483676, 2147483675, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 27, 28,
+            59, 59, 2147483680, 31, 31, 31, 137, 138, 138, 138, 139, 31, 31, 31, 32, 2147483680, 31, 31, 31, 31, 31, 31, 31, 31, 31, 31, 31, 31, 31, 32],
+         "height":20,
+         "id":1,
+         "name":"Tile Layer 1",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":30,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 459, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 459, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 452, 0, 0, 0, 0, 0, 0, 463, 0, 0, 0, 0, 0, 452, 0, 0, 0, 0, 463, 461, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 459, 0, 0, 0, 0, 0, 0, 461, 0, 0, 0, 0, 0, 0, 457, 0, 0, 0, 0, 458, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 463, 456, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 452, 0, 0, 0, 0, 0, 461, 0, 0, 0, 0, 0, 457, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 459, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 461, 456, 0, 0, 456, 0, 0, 457, 0, 0, 0, 0, 0, 0, 463, 0, 0, 0, 0, 461, 458, 0, 0, 0, 0, 0,
+            464, 0, 0, 0, 0, 0, 0, 5, 6, 0, 0, 0, 0, 0, 0, 464, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 464,
+            0, 0, 0, 2147484097, 0, 0, 0, 0, 0, 0, 459, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 459, 0,
+            0, 0, 0, 2147484097, 461, 461, 461, 0, 0, 0, 463, 461, 461, 461, 0, 0, 461, 461, 461, 461, 461, 461, 461, 461, 461, 461, 461, 461, 463, 0,
+            0, 0, 0, 0, 0, 0, 0, 8, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "height":20,
+         "id":2,
+         "name":"Tile Layer 2",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":30,
+         "x":0,
+         "y":0
+        }],
+ "nextlayerid":4,
+ "nextobjectid":1,
+ "orientation":"orthogonal",
+ "renderorder":"right-down",
+ "tiledversion":"1.11.0",
+ "tileheight":16,
+ "tilesets":[
+        {
+         "columns":4,
+         "firstgid":1,
+         "image":"..\/Documents\/PIXEL ART\/Boden ( Au\u00dfen ).png",
+         "imageheight":64,
+         "imagewidth":64,
+         "margin":0,
+         "name":"Boden ( Au\u00dfen )",
+         "spacing":0,
+         "tilecount":16,
+         "tileheight":16,
+         "tilewidth":16
+        }, 
+        {
+         "columns":4,
+         "firstgid":17,
+         "image":"..\/Documents\/PIXEL ART\/Boden \u00dcbergang ( Au\u00dfen ).png",
+         "imageheight":64,
+         "imagewidth":64,
+         "margin":0,
+         "name":"Boden \u00dcbergang ( Au\u00dfen )",
+         "spacing":0,
+         "tilecount":16,
+         "tileheight":16,
+         "tilewidth":16
+        }, 
+        {
+         "columns":4,
+         "firstgid":33,
+         "image":"..\/Documents\/PIXEL ART\/Boden Wand mit Gras ( Au\u00dfen ).png",
+         "imageheight":64,
+         "imagewidth":64,
+         "margin":0,
+         "name":"Boden Wand mit Gras ( Au\u00dfen )",
+         "spacing":0,
+         "tilecount":16,
+         "tileheight":16,
+         "tilewidth":16
+        }, 
+        {
+         "columns":4,
+         "firstgid":49,
+         "image":"..\/Documents\/PIXEL ART\/erd wand.png",
+         "imageheight":64,
+         "imagewidth":64,
+         "margin":0,
+         "name":"erd wand",
+         "spacing":0,
+         "tilecount":16,
+         "tileheight":16,
+         "tilewidth":16
+        }, 
+        {
+         "columns":24,
+         "firstgid":65,
+         "image":"..\/Documents\/PIXEL ART\/Fluss Ohne B.png",
+         "imageheight":64,
+         "imagewidth":384,
+         "margin":0,
+         "name":"Fluss Ohne B",
+         "spacing":0,
+         "tilecount":96,
+         "tileheight":16,
+         "tiles":[
+                {
+                 "animation":[
+                        {
+                         "duration":100,
+                         "tileid":72
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":76
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":80
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":84
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":88
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":92
+                        }],
+                 "id":72
+                }, 
+                {
+                 "animation":[
+                        {
+                         "duration":100,
+                         "tileid":73
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":77
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":81
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":85
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":89
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":93
+                        }],
+                 "id":73
+                }, 
+                {
+                 "animation":[
+                        {
+                         "duration":100,
+                         "tileid":74
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":78
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":82
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":86
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":90
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":94
+                        }],
+                 "id":74
+                }],
+         "tilewidth":16
+        }, 
+        {
+         "columns":24,
+         "firstgid":161,
+         "image":"..\/Documents\/PIXEL ART\/Fluss zu Wfall.png",
+         "imageheight":64,
+         "imagewidth":384,
+         "margin":0,
+         "name":"Fluss zu Wfall",
+         "spacing":0,
+         "tilecount":96,
+         "tileheight":16,
+         "tilewidth":16
+        }, 
+        {
+         "columns":24,
+         "firstgid":257,
+         "image":"..\/Documents\/PIXEL ART\/Fluss.png",
+         "imageheight":64,
+         "imagewidth":384,
+         "margin":0,
+         "name":"Fluss",
+         "spacing":0,
+         "tilecount":96,
+         "tileheight":16,
+         "tilewidth":16
+        }, 
+        {
+         "columns":24,
+         "firstgid":353,
+         "image":"..\/Documents\/PIXEL ART\/Wasser fall.png",
+         "imageheight":64,
+         "imagewidth":384,
+         "margin":0,
+         "name":"Wasser fall",
+         "spacing":0,
+         "tilecount":96,
+         "tileheight":16,
+         "tilewidth":16
+        }, 
+        {
+         "columns":1,
+         "firstgid":449,
+         "image":"..\/Documents\/PIXEL ART\/Sprite-00016 (2).png",
+         "imageheight":16,
+         "imagewidth":16,
+         "margin":0,
+         "name":"Sprite-00016 (2)",
+         "spacing":0,
+         "tilecount":1,
+         "tileheight":16,
+         "tilewidth":16
+        }, 
+        {
+         "columns":1,
+         "firstgid":450,
+         "image":"..\/Documents\/PIXEL ART\/Sprite-00016.png",
+         "imageheight":16,
+         "imagewidth":16,
+         "margin":0,
+         "name":"Sprite-00016",
+         "spacing":0,
+         "tilecount":1,
+         "tileheight":16,
+         "tilewidth":16
+        }, 
+        {
+         "columns":4,
+         "firstgid":451,
+         "image":"Blumen.png",
+         "imageheight":64,
+         "imagewidth":64,
+         "margin":0,
+         "name":"Blumen",
+         "spacing":0,
+         "tilecount":16,
+         "tileheight":16,
+         "tilewidth":16
+        }],
+ "tilewidth":16,
+ "type":"map",
+ "version":"1.10",
+ "width":30
+}
