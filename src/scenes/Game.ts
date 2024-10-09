@@ -10,8 +10,11 @@
         cursors : Phaser.Types.Input.Keyboard.CursorKeys | undefined;
         player : Player;
         gameOver : boolean;
+
         currentMap: Tilemaps.Tilemap;
+
         groundTileset: Tilemaps.Tileset | null;
+        animatedTileset: Tilemaps.Tileset | null;
 
         backgroundTileLayer: Tilemaps.TilemapLayer | undefined | any;
         groundLayer: Tilemaps.TilemapLayer | undefined | any;
@@ -30,6 +33,7 @@
         
         tilesetType: string;
         dataToCompare: undefined;
+        animatedLayer: Tilemaps.TilemapLayer | null;
         
         
         
@@ -58,6 +62,7 @@
             //map
             this.currentMap = this.make.tilemap({key: "map1"});
             this.groundTileset = this.currentMap.addTilesetImage('terrain', 'overworld');
+            this.animatedTileset = this.currentMap.addTilesetImage('animated', 'overworldAnim');
             
             this.backgroundTiles = this.physics.add.staticGroup();
             this.groundTiles = this.physics.add.staticGroup();
@@ -67,7 +72,8 @@
             if(this.groundTileset) {
                 console.log("generating map")
                 
-                this.backgroundTileLayer = this.currentMap.getObjectLayer('background');
+                this.backgroundTileLayer = this.currentMap.createLayer('background', this.groundTileset);
+                /*
                 // The following errors can be ignorded
                 this.backgroundTileLayer.objects.forEach(object => {
                     console.log(object);
@@ -75,8 +81,17 @@
                     this.backgroundTiles.add(tile);
                     console.log(tile + " created")
                 })
+                */
 
-                this.groundLayer = this.currentMap.getObjectLayer('ground');
+                this.groundLayer = this.currentMap.createLayer('ground', this.groundTileset);
+                this.groundLayer?.setCollisionByProperty({"collides":true});
+                this.groundLayer?.forEachTile(tile => {
+                    if (tile.properties["isPlatform"]) {
+                        tile.setCollision(false, false, true, false, true);
+                    }
+                })
+                this.animatedLayer = this.currentMap.createLayer('water', this.animatedTileset!);
+                /*
                 // The following errors can be ignorded
                 this.groundLayer.objects.forEach(object => {
                     let tile = this.physics.add.staticSprite(object.x+16, object.y-16, this.tilesetType + (object.gid -1));
@@ -104,7 +119,7 @@
                     }
                     ;
                 })
-
+                
                 
                 this.objectLayer = this.currentMap.getObjectLayer('objects');
                 
@@ -120,7 +135,7 @@
                 this.physics.add.collider(this.player, this.groundTiles);
                 this.physics.add.collider(this.player, this.wallSlideTiles, this.wallSlideFunction, undefined, this);
                 this.physics.add.collider(this.player, this.platformTiles, this.platformFunction, undefined, this);
-
+*/
 
                 //DJWIAHDLWAHLDHWALIDAW
 

@@ -60,7 +60,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
         
         this.setBodySize(22, 38, false);
         this.body?.setOffset(44,this.offsetY = 43);
-        this.scale = 0.8;
+        this.scale = 0.7;
         this.anims.play(this.currentAnimPrefix + 'Fall', true);
     }
 
