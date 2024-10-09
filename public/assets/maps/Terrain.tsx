@@ -135,6 +135,16 @@
    <property name="wallSlideAllowed" type="bool" value="true"/>
   </properties>
  </tile>
+ <tile id="72">
+  <properties>
+   <property name="item" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="73">
+  <properties>
+   <property name="item" type="bool" value="true"/>
+  </properties>
+ </tile>
  <tile id="75">
   <properties>
    <property name="collides" type="bool" value="true"/>
@@ -145,6 +155,11 @@
   <properties>
    <property name="collides" type="bool" value="true"/>
    <property name="wallSlideAllowed" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="84">
+  <properties>
+   <property name="item" type="bool" value="true"/>
   </properties>
  </tile>
  <tile id="86">
