@@ -71,7 +71,7 @@
                 // The following errors can be ignorded
                 this.backgroundTileLayer.objects.forEach(object => {
                     console.log(object);
-                    let tile = this.physics.add.staticSprite(object.x+8, object.y-8, this.tilesetType + (object.gid -1))
+                    let tile = this.physics.add.staticSprite(object.x+16, object.y-16, this.tilesetType + (object.gid -1))
                     this.backgroundTiles.add(tile);
                     console.log(tile + " created")
                 })
