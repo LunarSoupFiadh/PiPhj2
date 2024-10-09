@@ -5,7 +5,7 @@ export class Block extends Phaser.Physics.Arcade.Sprite {
 
        scene.physics.world.enableBody(this);
        this.setCollideWorldBounds(true);
-       this.body!.setSize(26, 26, true);
+       this.setGravity(0, 0);
     }
 
     blockUpdate(){

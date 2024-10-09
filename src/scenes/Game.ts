@@ -12,12 +12,23 @@
         gameOver : boolean;
         currentMap: Tilemaps.Tilemap;
         groundTileset: Tilemaps.Tileset | null;
-        groundLayer: Tilemaps.TilemapLayer | null;
+
+        backgroundTileLayer: Tilemaps.TilemapLayer | undefined | any;
+        groundLayer: Tilemaps.TilemapLayer | undefined | any;
         objectLayer: Tilemaps.TilemapLayer | undefined | any;
+        
         ground: Phaser.GameObjects.Rectangle;
+
         playerLight: Phaser.GameObjects.Light;
         spawn: Phaser.Physics.Arcade.Sprite;
         maxScore: number;
+        
+        backgroundTiles: Physics.Arcade.StaticGroup;
+        groundTiles: Phaser.Physics.Arcade.StaticGroup;
+        
+        tilesetType: string;
+        
+        
         
 
         constructor ()
@@ -35,7 +46,7 @@
             this.cursors = this.input.keyboard?.createCursorKeys();
             
             //  The player
-            this.player = this.physics.add.existing(new Player(this, 300, 10, 'Lv1_Idle', 1));
+            this.player = this.physics.add.existing(new Player(this, 30, 10, 'Lv1_Idle', 1));
             
             this.ground = this.add.rectangle(this.physics.world.bounds.width/2, this.physics.world.bounds.height-10, this.physics.world.bounds.width, 10, 0x008000);
 
@@ -43,70 +54,50 @@
             this.physics.add.collider(this.ground, this.player);
             //map
             this.currentMap = this.make.tilemap({key: "map1"});
-            this.groundTileset = this.currentMap.addTilesetImage('Terrain', 'overworld');
+            this.groundTileset = this.currentMap.addTilesetImage('terrain', 'overworld');
             
+            this.backgroundTiles = this.physics.add.staticGroup();
+            this.groundTiles = this.physics.add.staticGroup();
+
+            this.tilesetType = "ov";
                 
             if(this.groundTileset) {
                 console.log("generating map")
-                this.groundLayer = this.currentMap.createLayer('ground', this.groundTileset,0, 100);
                 
-                this.currentMap.setCollisionBetween(0, this.currentMap.tiles.length, true, true, this.groundLayer!)
+                this.backgroundTileLayer = this.currentMap.getObjectLayer('background');
+                // The following errors can be ignorded
+                this.backgroundTileLayer.objects.forEach(object => {
+                    console.log(object);
+                    let tile = this.physics.add.staticSprite(object.x+8, object.y-8, this.tilesetType + (object.gid -1))
+                    this.backgroundTiles.add(tile);
+                    console.log(tile + " created")
+                })
 
-                this.groundLayer?.setCollisionByProperty({"collides":true});
-
-                /*
-                // The following 3 errors can be ignorded
-                this.wallLayer.objects.forEach(element => {
-                    let wall = this.physics.add.staticSprite(element.x+16, element.y-16, 'wall');
-                    wall.setPipeline('Light2D');
-                    this.walls.add(wall);
-                    console.log(wall + " created");
-                }); */
-                this.groundLayer?.forEachTile(createPlatform, this, 0, 0, this.groundLayer.width, this.groundLayer.height, )
-
-                console.log("wall generation complete");
+                this.groundLayer = this.currentMap.getObjectLayer('ground');
+                // The following errors can be ignorded
+                this.groundLayer.objects.forEach(object => {
+                    let tile = this.physics.add.staticSprite(object.x+16, object.y-16, this.tilesetType + (object.gid -1))
+                    if(tile.data) {
+                        console.log(tile.data.list)
+                    }
+                    this.groundTiles.add(tile);
+                    console.log(tile + " created")
+                })
 
                 
                 this.objectLayer = this.currentMap.getObjectLayer('objects');
                 
                 this.objectLayer.objects.forEach(object => {
-                    console.log(object);
-                    if (object.gid == 3) {
-                        this.spawn = this.physics.add.staticSprite(object.x+16, object.y-16, 'spawn')
-                        this.player.x = object.x+16;
-                        this.player.y = object.y-16;
-                        console.log("player spawn position set");
-                    } else if (object.gid == 4) {
-                        let crystal = this.physics.add.staticSprite(object.x+16, object.y-16, 'crystal');
-                        crystal.setPipeline('Light2D');
-                        crystal.body.setSize(28, 28, true)
-                        this.crystals.add(crystal);
-                        console.log(crystal + " created");
-                        this.maxScore += 1;
-                    } else  if (object.gid == 12) {
-                        let block = this.physics.add.sprite(object.x+16, object.y-16, 'block');
-                        block.setPipeline('Light2D');
-                        block.body.setSize(28, 28, true)
-                        this.blocks.add(block);
-                    }
+                    console.log(object.properties);
+                    let tile = this.physics.add.staticSprite(object.x+8, object.y-8, this.tilesetType + (object.gid -1))
+                    
                 });
                 
-                /*
                 //add colliders for this.player and this.crystals (see the this.walls collider above)
                 //same thing for blocks
                 //add functions for colliding with blocks and with crystals
-                this.physics.add.collider(this.player, this.walls, this.collideWall, undefined, this);
-                this.physics.add.overlap(this.player, this.crystals, this.collideCrystal, undefined, this);
+                this.physics.add.collider(this.player, this.groundTiles);
 
-                //colliders for blocks
-                this.physics.add.collider(this.player, this.blocks);
-                this.physics.add.collider(this.blocks, this.blocks, this.blocksCollide, undefined, this);
-                this.physics.add.collider(this.blocks, this.walls);
-                this.physics.add.collider(this.blocks, this.crystals);
-
-                this.physics.add.overlap(this.player, this.spawn, this.checkForScore, undefined, this);
-                
-                
 
                 //DJWIAHDLWAHLDHWALIDAW
 

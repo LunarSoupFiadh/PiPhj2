@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="100" height="20" tilewidth="16" tileheight="16" infinite="0" nextlayerid="8" nextobjectid="475">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="100" height="20" tilewidth="16" tileheight="16" infinite="0" nextlayerid="8" nextobjectid="476">
  <editorsettings>
   <export target="map1.json" format="json"/>
  </editorsettings>
@@ -831,13 +831,13 @@
   <object id="469" gid="18" x="1584" y="304" width="16" height="16"/>
   <object id="470" gid="18" x="1584" y="320" width="16" height="16"/>
   <object id="471" gid="6" x="1584" y="288" width="16" height="16"/>
-  <object id="472" gid="265" x="720" y="272" width="16" height="16"/>
-  <object id="473" gid="265" x="272" y="224" width="16" height="16"/>
-  <object id="474" gid="266" x="16" y="304" width="16" height="16"/>
  </objectgroup>
  <objectgroup id="5" name="objects">
   <object id="279" gid="86" x="928" y="128" width="16" height="16"/>
   <object id="280" gid="74" x="928" y="112" width="16" height="16"/>
+  <object id="475" gid="266" x="16" y="304" width="16" height="16"/>
+  <object id="473" gid="265" x="272" y="224" width="16" height="16"/>
+  <object id="472" gid="265" x="720" y="272" width="16" height="16"/>
  </objectgroup>
  <objectgroup id="4" name="water">
   <object id="140" gid="147" x="352" y="320" width="16" height="16"/>

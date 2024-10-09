@@ -46,6 +46,25 @@ export class Preloader extends Scene
         this.load.image("overworldAnim", 'maps/OverworldAnimation.png');
         this.load.image("underground", 'maps/Underground.png');
         this.load.image("undergroundAnim", 'maps/UndergroundAnimation.png');
+        this.load.image("flowers", 'maps/Blumen.png');
+
+        //backgrounds for parallax
+        for (let index = 0; index <= 6; index++) {
+            this.load.image("AV_"+index, 'backgrounds/AV_' + index + ".png");
+        }
+        for (let index = 0; index <= 2; index++) {
+            if (index != 0) {
+                this.load.image("FM_"+index, 'backgrounds/FM_' + index + ".png");
+            } else {
+                this.load.image("FM_"+index, 'backgrounds/FM_' + index + ".gif");
+            }
+        }
+        for (let index = 0; index <= 143; index++) {
+            this.load.image("ov" + index, 'tiles/terrain/overworld/' + index + ".png");
+            this.load.image("un" + index, 'tiles/terrain/overworld/' + index + ".png");
+        }
+
+
     }
 
     create ()

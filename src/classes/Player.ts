@@ -54,13 +54,13 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
         this.currentAnimPrefix = "Lv" + this.currentLevel + "_";
         
         //walk 160, crouch 100
-        this.speed = 160;
+        this.speed = 120;
 
         //body size
         
         this.setBodySize(22, 38, false);
         this.body?.setOffset(44,this.offsetY = 43);
-        this.scale = 1;
+        this.scale = 0.8;
         this.anims.play(this.currentAnimPrefix + 'Fall', true);
     }
 
@@ -83,10 +83,10 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
 
         if (this.isCrouching && this.state == "jumping") {
             this.speed *= 1.1;
-            if (this.speed >= 300) this.speed = 300;
+            if (this.speed >= 200) this.speed = 200;
         } else if(this.isCrouching || this.state == "jumping") {
-            this.speed = 100;
-        } else this.speed = 160;
+            this.speed = 60;
+        } else this.speed = 120;
 
     }
 
