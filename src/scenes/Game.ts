@@ -24,9 +24,12 @@
         maxScore: number;
         
         backgroundTiles: Physics.Arcade.StaticGroup;
+        wallSlideTiles: Physics.Arcade.StaticGroup;
+        platformTiles: Physics.Arcade.StaticGroup;
         groundTiles: Phaser.Physics.Arcade.StaticGroup;
         
         tilesetType: string;
+        dataToCompare: undefined;
         
         
         
@@ -76,12 +79,30 @@
                 this.groundLayer = this.currentMap.getObjectLayer('ground');
                 // The following errors can be ignorded
                 this.groundLayer.objects.forEach(object => {
-                    let tile = this.physics.add.staticSprite(object.x+16, object.y-16, this.tilesetType + (object.gid -1))
-                    if(tile.data) {
-                        console.log(tile.data.list)
+                    let tile = this.physics.add.staticSprite(object.x+16, object.y-16, this.tilesetType + (object.gid -1));
+                    
+                    this.dataToCompare = tile.getData('wallSlideAllowed');
+                    console.log(this.dataToCompare);
+                    if(this.dataToCompare != undefined) {
+                        if (this.dataToCompare == true) {
+                            this.wallSlideTiles.add(tile);
+                        }
                     }
-                    this.groundTiles.add(tile);
-                    console.log(tile + " created")
+                    this.dataToCompare = tile.getData('isPlatform');
+                    console.log(this.dataToCompare);
+                    if(this.dataToCompare != undefined) {
+                        if (this.dataToCompare == true) {
+                            this.platformTiles.add(tile);
+                        }
+                    }
+                    this.dataToCompare = tile.getData('collides');
+                    console.log(this.dataToCompare);
+                    if(this.dataToCompare != undefined) {
+                        if (this.dataToCompare == true) {
+                            this.groundTiles.add(tile)
+                        }
+                    }
+                    ;
                 })
 
                 
@@ -97,6 +118,8 @@
                 //same thing for blocks
                 //add functions for colliding with blocks and with crystals
                 this.physics.add.collider(this.player, this.groundTiles);
+                this.physics.add.collider(this.player, this.wallSlideTiles, this.wallSlideFunction, undefined, this);
+                this.physics.add.collider(this.player, this.platformTiles, this.platformFunction, undefined, this);
 
 
                 //DJWIAHDLWAHLDHWALIDAW
@@ -134,6 +157,14 @@
             this.msg_text.setOrigin(0.5);
             */
             }
+        platformFunction(player: Player, platform: Physics.Arcade.Sprite) {
+            if(player.body!.bottom > platform.body!.top) {
+                platform.body!.checkCollision.down = false;
+            }
+        }
+        wallSlideFunction(player: Player, wall: any) {
+            throw new Error('Method not implemented.');
+        }
 
         
         blocksCollide(block1: Block, block2: Block) {
