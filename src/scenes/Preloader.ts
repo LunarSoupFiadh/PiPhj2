@@ -46,7 +46,6 @@ export class Preloader extends Scene
         this.load.image("overworldAnim", 'maps/OverworldAnimation.png');
         this.load.image("underground", 'maps/Underground.png');
         this.load.image("undergroundAnim", 'maps/UndergroundAnimation.png');
-        
     }
 
     create ()

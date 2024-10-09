@@ -66,7 +66,7 @@
 
                 console.log("wall generation complete");
 
-                /*
+                
                 this.objectLayer = this.currentMap.getObjectLayer('objects');
                 
                 this.objectLayer.objects.forEach(object => {
@@ -91,6 +91,7 @@
                     }
                 });
                 
+                /*
                 //add colliders for this.player and this.crystals (see the this.walls collider above)
                 //same thing for blocks
                 //add functions for colliding with blocks and with crystals

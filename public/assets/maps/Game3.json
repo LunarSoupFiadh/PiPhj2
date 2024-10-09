@@ -261,11 +261,11 @@
          "tilewidth":16
         }, 
         {
-         "columns":12,
+         "columns":1,
          "firstgid":449,
-         "image":"Underground.png",
-         "imageheight":192,
-         "imagewidth":192,
+         "image":"Sprite-00016 (2).png",
+         "imageheight":16,
+         "imagewidth":16,
          "margin":0,
          "name":"Sprite-00016 (2)",
          "spacing":0,
@@ -274,11 +274,11 @@
          "tilewidth":16
         }, 
         {
-         "columns":23,
+         "columns":1,
          "firstgid":593,
-         "image":"Terrain.png",
-         "imageheight":192,
-         "imagewidth":368,
+         "image":"Sprite-00016.png",
+         "imageheight":16,
+         "imagewidth":16,
          "margin":0,
          "name":"Sprite-00016",
          "spacing":0,
@@ -289,7 +289,7 @@
         {
          "columns":4,
          "firstgid":869,
-         "image":"shadow.png",
+         "image":"Blumen.png",
          "imageheight":64,
          "imagewidth":64,
          "margin":0,
