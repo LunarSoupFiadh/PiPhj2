@@ -1,25 +1,35 @@
 export default class Enemy extends Phaser.Physics.Arcade.Sprite {
-    private static enemies: Enemy[] = []; // Static array that holds all enemies
+    enemyType: string;
 
-    private enemyType: string;
-
-    constructor(scene: Phaser.Scene, x: number, y: number, texture: string | Phaser.Textures.Texture, enemyType: string, frame?: string | number) {
+    constructor(scene: Phaser.Scene, x: number, y: number, texture: string | Phaser.Textures.Texture, enemyType:string, frame?: string | number) {
         super(scene, x, y, texture, frame);
-    
+        this.enemyType = enemyType;
+
         scene.physics.world.enableBody(this);
         this.setCollideWorldBounds(true);
-
-        this.enemyType = enemyType;
-        Enemy.enemies.push(this); // Automatically add an Enemy to the static array when it's created
-        console.log(`Enemy of type ${this.enemyType} positioned at (${x}, ${y})`);
+        
         this.anims.play('Idle', true);
     }
 
     public enemyUpdate(){
-        this.anims.play("Idle",true);
+        this.anims.play(this.getAnimationByEnemyType(),true);
     }
 
-    public static getEnemies(): Enemy[] {
-        return Enemy.enemies; // A Method which retrieves all Enemy's
+    public setSizeAndScale() {
+        switch(this.enemyType) {
+            case "golem": super.setSize(52,52); break;
+            case "goblin": 
+            case "slime": super.setSize(26,26); this.setOffset(26,40);this.setScale(0.5); break;
+            default: return "Idle";
+        }
+    }
+
+    private getAnimationByEnemyType() {
+        switch(this.enemyType) {
+            case "golem": return "Idle";
+            case "goblin": return "Attack";
+            case "slime": return "Wobble";
+            default: return "Idle";
+        }
     }
 }

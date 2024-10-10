@@ -135,9 +135,8 @@ import Enemy from '../classes/Enemy';
                 this.enemiesLayer.objects.forEach(object => {
                     console.log(object.name + " | " + object.properties);
                     if(!object.name.includes("path")) {
-                        let enemy = this.physics.add.existing(new Enemy(this, object.x-8, object.y-32, "golem", "golem", 1));
-                        enemy.setScale(1);
-                        enemy.setSize(52, 52)
+                        let enemy = this.physics.add.existing(new Enemy(this, object.x-8, object.y-32, object.name, object.name, 1));
+                        enemy.setSizeAndScale();
                         this.add.existing(enemy);
                         this.enemies.add(enemy);
                     }
@@ -205,6 +204,7 @@ import Enemy from '../classes/Enemy';
             this.physics.add.collider(this.player, this.groundLayer!);
             
             this.physics.add.collider(this.enemies, this.groundLayer!)
+            this.physics.add.collider(this.player, this.enemies, this.killPlayer, undefined, this)
             
 
             // camera
@@ -223,6 +223,9 @@ import Enemy from '../classes/Enemy';
             this.msg_text.setOrigin(0.5);
             */
             
+        }
+        killPlayer() {
+            this.gameOver = true;
         }
         
         wallSlideFunction(player: Player) {

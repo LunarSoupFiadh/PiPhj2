@@ -173,7 +173,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
         }
         if (this.jumpKey?.isDown && !this.isDodging) {
             if (this.body.touching.down || this.body.onFloor() || this.state == "wallSlide") {
-                this.setVelocityY(-160);
+                this.setVelocityY(-200);
                 if (this.state == "wallSlide") {
                     if (this.flipX) {
                         this.setVelocityX(-200);

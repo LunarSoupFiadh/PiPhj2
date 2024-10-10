@@ -44,7 +44,17 @@ export class Preloader extends Scene
             key: 'golem',
             textureURL: 'enemies/Golem.png',
             atlasURL: 'enemies/Golem.json'
-        })
+        });
+        this.load.aseprite({
+            key: 'goblin',
+            textureURL: 'enemies/EnemyGoblinSaber.png',
+            atlasURL: 'enemies/EnemyGoblinSaber.json'
+        });
+        this.load.aseprite({
+            key: 'slime',
+            textureURL: 'enemies/EnemySlimeRevamped.png',
+            atlasURL: 'enemies/EnemySlimeRevamped.json'
+        });
 
         this.load.tilemapTiledJSON('map1', 'maps/map1.json');
 
@@ -81,7 +91,8 @@ export class Preloader extends Scene
         //  For example, you can define global animations here, so we can use them in other scenes.
         this.anims.createFromAseprite('player');
         this.anims.createFromAseprite('golem');
-        
+        this.anims.createFromAseprite('goblin');
+        this.anims.createFromAseprite('slime');
         //  Move to the MainMenu. You could also swap this for a Scene Transition, such as a camera fade.
         this.scene.start('Game');
     }

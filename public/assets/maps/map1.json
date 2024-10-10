@@ -257,6 +257,30 @@
                  "width":16,
                  "x":688,
                  "y":544
+                }, 
+                {
+                 "gid":265,
+                 "height":16,
+                 "id":480,
+                 "name":"golem",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":512,
+                 "y":544
+                }, 
+                {
+                 "gid":266,
+                 "height":16,
+                 "id":481,
+                 "name":"pathGolem",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":576,
+                 "y":544
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -265,7 +289,7 @@
          "y":0
         }],
  "nextlayerid":14,
- "nextobjectid":480,
+ "nextobjectid":482,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.11.0",
