@@ -41,9 +41,9 @@ export class Preloader extends Scene
         });
 
         this.load.aseprite({
-            key: 'goblinSaber',
-            textureURL: 'enemies/EnemyGoblinSaber.png',
-            atlasURL: 'enemies/EnemyGoblinSaber.json'
+            key: 'golem',
+            textureURL: 'enemies/Golem.png',
+            atlasURL: 'enemies/Golem.json'
         })
 
         this.load.tilemapTiledJSON('map1', 'maps/map1.json');
@@ -80,7 +80,7 @@ export class Preloader extends Scene
         //  When all the assets have loaded, it's often worth creating global objects here that the rest of the game can use.
         //  For example, you can define global animations here, so we can use them in other scenes.
         this.anims.createFromAseprite('player');
-        this.anims.createFromAseprite('goblinSaber');
+        this.anims.createFromAseprite('golem');
         
         //  Move to the MainMenu. You could also swap this for a Scene Transition, such as a camera fade.
         this.scene.start('Game');

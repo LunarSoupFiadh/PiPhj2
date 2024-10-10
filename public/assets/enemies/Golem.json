@@ -227,7 +227,7 @@
  "meta": {
   "app": "https://www.aseprite.org/",
   "version": "1.3-rc4-dev",
-  "image": "GolemFertig.png",
+  "image": "Golem.png",
   "format": "RGBA8888",
   "size": { "w": 335, "h": 335 },
   "scale": "1",
@@ -238,8 +238,7 @@
    { "name": "Walk", "from": 13, "to": 27, "direction": "forward", "color": "#000000ff" }
   ],
   "layers": [
-   { "name": "Layer 0", "opacity": 255, "blendMode": "normal" },
-   { "name": "Layer 1", "opacity": 255, "blendMode": "normal" }
+   { "name": "Layer 0", "opacity": 255, "blendMode": "normal" }
   ],
   "slices": [
   ]

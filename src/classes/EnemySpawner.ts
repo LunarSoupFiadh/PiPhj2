@@ -33,7 +33,7 @@ export default class EnemySpawner {
     }
 
     private spawnEnemy() {
-        const enemy = new Enemy(this.scene, this.spawnPosition.x, this.spawnPosition.y, 'goblinSaber', this.enemyType);
+        const enemy = new Enemy(this.scene, this.spawnPosition.x, this.spawnPosition.y, 'golem', this.enemyType);
 
         enemy.setPosition(this.spawnPosition.x, this.spawnPosition.y);
 

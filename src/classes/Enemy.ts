@@ -8,10 +8,15 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
     
         scene.physics.world.enableBody(this);
         this.setCollideWorldBounds(true);
-        
+
         this.enemyType = enemyType;
         Enemy.enemies.push(this); // Automatically add an Enemy to the static array when it's created
         console.log(`Enemy of type ${this.enemyType} positioned at (${x}, ${y})`);
+        this.anims.play('Idle', true);
+    }
+
+    public enemyUpdate(){
+        this.anims.play("Idle",true);
     }
 
     public static getEnemies(): Enemy[] {

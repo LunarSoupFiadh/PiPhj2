@@ -1,7 +1,8 @@
-    import { Physics, Scene, Tilemaps} from 'phaser';
+    import { Physics, Scene, Tilemaps, Types} from 'phaser';
     import { Player } from '../classes/Player';
     import { Block } from '../classes/Block';
 import EnemySpawner from '../classes/EnemySpawner';
+import Enemy from '../classes/Enemy';
 
     export class Game extends Scene
     {
@@ -46,6 +47,7 @@ import EnemySpawner from '../classes/EnemySpawner';
 
         //enemies
         enemies: Phaser.Physics.Arcade.Group;
+        enemiesLayer: any;
         
 
         constructor ()
@@ -127,6 +129,19 @@ import EnemySpawner from '../classes/EnemySpawner';
                 })
                 this.physics.add.collider(this.player, this.wallClimbables, this.wallSlideFunction, undefined, this);
                 this.animatedLayer = this.currentMap.createLayer('water', this.animatedTileset!);
+
+                this.enemiesLayer = this.currentMap.getObjectLayer('enemies')
+
+                this.enemiesLayer.objects.forEach(object => {
+                    console.log(object.name + " | " + object.properties);
+                    if(!object.name.includes("path")) {
+                        let enemy = this.physics.add.existing(new Enemy(this, object.x-8, object.y-32, "golem", "golem", 1));
+                        enemy.setScale(1);
+                        enemy.setSize(52, 52)
+                        this.add.existing(enemy);
+                        this.enemies.add(enemy);
+                    }
+                });
                 /*
                 
                 this.groundLayer.objects.forEach(object => {
@@ -187,8 +202,9 @@ import EnemySpawner from '../classes/EnemySpawner';
             
             // player part 2
             this.add.existing(this.player);
-            this.physics.add.collider(this.player, this.groundLayer!,);
-
+            this.physics.add.collider(this.player, this.groundLayer!);
+            
+            this.physics.add.collider(this.enemies, this.groundLayer!)
             
 
             // camera
@@ -238,6 +254,9 @@ import EnemySpawner from '../classes/EnemySpawner';
         // update based on template
         update ()
         {
+            this.enemies.children.getArray().forEach(element => {
+                element.enemyUpdate();
+            });
             this.player.playerUpdate();
             this.updateParallax();
             /*
