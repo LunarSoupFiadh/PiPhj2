@@ -1,15 +1,17 @@
-export default class Enemy {
+export default class Enemy extends Phaser.Physics.Arcade.Sprite {
     private static enemies: Enemy[] = []; // Static array that holds all enemies
 
-    private type: string;
+    private enemyType: string;
 
-    constructor(type: string) {
-        this.type = type;
+    constructor(scene: Phaser.Scene, x: number, y: number, texture: string | Phaser.Textures.Texture, enemyType: string, frame?: string | number) {
+        super(scene, x, y, texture, frame);
+    
+        scene.physics.world.enableBody(this);
+        this.setCollideWorldBounds(true);
+        
+        this.enemyType = enemyType;
         Enemy.enemies.push(this); // Automatically add an Enemy to the static array when it's created
-    }
-
-    public setPosition(x: number, y: number) {
-        console.log(`Enemy of type ${this.type} positioned at (${x}, ${y})`);
+        console.log(`Enemy of type ${this.enemyType} positioned at (${x}, ${y})`);
     }
 
     public static getEnemies(): Enemy[] {

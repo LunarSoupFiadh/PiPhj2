@@ -1,7 +1,7 @@
+import { Scene } from 'phaser';
 import Enemy from './Enemy';
 
-const enemy = new Enemy('goblin');
-enemy.setPosition(100, 200);
+
 
 // Enemy list Access
 const allEnemies = Enemy.getEnemies();
@@ -14,8 +14,10 @@ export default class EnemySpawner {
     public maxEnemies: number;
     public spawnedEnemies: number = 0;
     private enemies: Enemy[] = [];
+    private scene: Scene;
 
-    constructor(spawnRate: number, enemyType: string, spawnPosition: { x: number, y: number }, maxEnemies: number) {
+    constructor(scene: Scene,spawnRate: number, enemyType: string, spawnPosition: { x: number, y: number }, maxEnemies: number) {
+        this.scene = scene;
         this.spawnRate = spawnRate;
         this.enemyType = enemyType;
         this.spawnPosition = spawnPosition;
@@ -31,7 +33,7 @@ export default class EnemySpawner {
     }
 
     private spawnEnemy() {
-        const enemy = new Enemy(this.enemyType);
+        const enemy = new Enemy(this.scene, this.spawnPosition.x, this.spawnPosition.y, 'goblinSaber', this.enemyType);
 
         enemy.setPosition(this.spawnPosition.x, this.spawnPosition.y);
 

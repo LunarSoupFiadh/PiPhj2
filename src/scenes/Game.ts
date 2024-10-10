@@ -1,6 +1,7 @@
     import { Physics, Scene, Tilemaps} from 'phaser';
     import { Player } from '../classes/Player';
     import { Block } from '../classes/Block';
+import EnemySpawner from '../classes/EnemySpawner';
 
     export class Game extends Scene
     {
@@ -30,12 +31,21 @@
         wallSlideTiles: Physics.Arcade.StaticGroup;
         platformTiles: Physics.Arcade.StaticGroup;
         groundTiles: Phaser.Physics.Arcade.StaticGroup;
-        
+        wallClimbables: Phaser.Physics.Arcade.StaticGroup;
+
         tilesetType: string;
         dataToCompare: undefined;
         animatedLayer: Tilemaps.TilemapLayer | null;
-        
-        
+        background_0: Phaser.GameObjects.TileSprite;
+        background_1: Phaser.GameObjects.TileSprite;
+        background_2: Phaser.GameObjects.TileSprite;
+        background_3: Phaser.GameObjects.TileSprite;
+        background_4: Phaser.GameObjects.TileSprite;
+        background_5: Phaser.GameObjects.TileSprite;
+        background_6: Phaser.GameObjects.TileSprite;
+
+        //enemies
+        enemies: Phaser.Physics.Arcade.Group;
         
 
         constructor ()
@@ -66,9 +76,29 @@
             
             this.backgroundTiles = this.physics.add.staticGroup();
             this.groundTiles = this.physics.add.staticGroup();
+            this.wallClimbables = this.physics.add.staticGroup();
+
+            this.enemies = this.physics.add.group();
 
             this.tilesetType = "ov";
-                
+
+            //background for parallax
+            this.background_0 = this.add.tileSprite(0, 0, this.currentMap.width*16, this.currentMap.height*16, "AV_0");
+            this.background_1 = this.add.tileSprite(0, 0, this.currentMap.width*16, this.currentMap.height*16, "AV_1");
+            this.background_2 = this.add.tileSprite(0, 0, this.currentMap.width*16, this.currentMap.height*16, "AV_2");
+            this.background_3 = this.add.tileSprite(0, 0, this.currentMap.width*16, this.currentMap.height*16, "AV_3");
+            this.background_4 = this.add.tileSprite(0, 0, this.currentMap.width*16, this.currentMap.height*16, "AV_4");
+            this.background_5 = this.add.tileSprite(0, 0, this.currentMap.width*16, this.currentMap.height*16, "AV_5");
+            this.background_6 = this.add.tileSprite(0, 0, this.currentMap.width*16, this.currentMap.height*16, "AV_6");
+            
+            this.background_0.setScale(2);
+            this.background_1.setScale(2);
+            this.background_2.setScale(2);
+            this.background_3.setScale(2);
+            this.background_4.setScale(2);
+            this.background_5.setScale(2);
+            this.background_6.setScale(2);
+            
             if(this.groundTileset) {
                 console.log("generating map")
                 
@@ -82,17 +112,23 @@
                     console.log(tile + " created")
                 })
                 */
-
+                
+                // The following errors can be ignorded
                 this.groundLayer = this.currentMap.createLayer('ground', this.groundTileset);
                 this.groundLayer?.setCollisionByProperty({"collides":true});
                 this.groundLayer?.forEachTile(tile => {
                     if (tile.properties["isPlatform"]) {
                         tile.setCollision(false, false, true, false, true);
                     }
+                    if (tile.properties["wallSlideAllowed"]) {
+                        let wallClimbBlock = this.physics.add.staticSprite(tile.x*16+8, tile.y*16+8,'empty')
+                        this.wallClimbables.add(wallClimbBlock);
+                    }
                 })
+                this.physics.add.collider(this.player, this.wallClimbables, this.wallSlideFunction, undefined, this);
                 this.animatedLayer = this.currentMap.createLayer('water', this.animatedTileset!);
                 /*
-                // The following errors can be ignorded
+                
                 this.groundLayer.objects.forEach(object => {
                     let tile = this.physics.add.staticSprite(object.x+16, object.y-16, this.tilesetType + (object.gid -1));
                     
@@ -151,10 +187,9 @@
             
             // player part 2
             this.add.existing(this.player);
-            this.player.setPipeline('Light2D');
             this.physics.add.collider(this.player, this.groundLayer!,);
 
-            this.playerLight = this.lights.addLight(this.player.x, this.player.y, 32, 0xffffff, 1);
+            
 
             // camera
             this.camera = this.cameras.main;
@@ -171,14 +206,12 @@
             });
             this.msg_text.setOrigin(0.5);
             */
-            }
-        platformFunction(player: Player, platform: Physics.Arcade.Sprite) {
-            if(player.body!.bottom > platform.body!.top) {
-                platform.body!.checkCollision.down = false;
-            }
+            
         }
-        wallSlideFunction(player: Player, wall: any) {
-            throw new Error('Method not implemented.');
+        
+        wallSlideFunction(player: Player) {
+            player.state = 'wallSlide';
+            console.log("wallSlideTest");
         }
 
         
@@ -194,30 +227,6 @@
         }
         
 
-        //  collides by milo
-        collideWall(player: Player, wall: any) {
-            //  Add logic for colliding with walls, for example the following destroy logic
-            if (player.interactKey?.isDown) {
-                if(player.jumpKey?.isDown && wall.y + 1 < player.body?.top!){
-                    wall.destroy();
-                }
-                if(player.rightKey?.isDown && wall.x - 1 > player.body?.right!){
-                    wall.destroy();
-                }
-                if(player.downKey?.isDown && wall.y - 1 > player.body?.bottom!){
-                    wall.destroy();
-                }
-                if(player.leftKey?.isDown && wall.x - 1 < player.body?.left!){
-                    wall.destroy();
-                }
-            }
-        }
-
-        collideCrystal(player: Player, crystal: any){
-            player.score += 1;
-            crystal.destroy();
-        }
-
         checkForScore(player: Player){
             if(player.score >= this.maxScore) {
                 this.gameOver = true;
@@ -230,9 +239,7 @@
         update ()
         {
             this.player.playerUpdate();
-            this.playerLight.setPosition(this.player.x, this.player.y);
-            this.playerLight.setRadius(64 + (this.player.score * 64));
-            this.playerLight.setIntensity(1)
+            this.updateParallax();
             /*
             this.blocks.getChildren().forEach(element => {
                 element.body!.velocity.x = element.body!.velocity.x * 0.6
@@ -248,11 +255,22 @@
             }
 
         }
-    }
-function createPlatform(this: any, tile: Tilemaps.Tile) {
-    
-    if (tile.properties) {
+        updateParallax() {
+            //Ich hasse diese Scheiße
+            this.background_0.setX(this.camera.scrollX + this.camera.width);
+            this.background_1.setX(this.camera.scrollX *0.99 + this.camera.width);
+            this.background_2.setX(this.camera.scrollX *0.95 + this.camera.width);
+            this.background_3.setX(this.camera.scrollX *0.90 + this.camera.width);
+            this.background_4.setX(this.camera.scrollX *0.90 + this.camera.width);
+            this.background_5.setX(this.camera.scrollX *0.90 + this.camera.width);
+            this.background_6.setX(this.camera.scrollX + this.camera.width);
 
+            this.background_0.setY(this.camera.scrollY/2);
+            this.background_1.setY(this.camera.scrollY/2);
+            this.background_2.setY(this.camera.scrollY/2);
+            this.background_3.setY(this.camera.scrollY/2);
+            this.background_4.setY(this.camera.scrollY/2);
+            this.background_5.setY(this.camera.scrollY/2);
+            this.background_6.setY(this.camera.scrollY/2);
+        }
     }
-}
-
